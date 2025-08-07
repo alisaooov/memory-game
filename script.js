@@ -4,6 +4,7 @@ const board = document.querySelector(".board")
 btn_start.addEventListener("click",function(){
     btn_start.style.display = "none"
     board.style.display = "grid"
+    createBoard()
 })
 
 let firstCard = null
@@ -23,11 +24,9 @@ function random (array){
 
 function createBoard(){
     board.innerHTML = ""
-}
+    let randomCard = random(cardImages)
 
-let randomCard = random(cardImages)
-
-randomCard.forEach((img, index) => {
+    randomCard.forEach((img, index) => {
     let card = document.createElement("div")
     card.classList.add("card")
     card.dataset.image = img
@@ -39,9 +38,14 @@ randomCard.forEach((img, index) => {
     card.addEventListener("click", cardClick)
     board.appendChild(card)
 });
+}             
+
+
+
+
 
 function cardClick(){
-    if(lockBoard || this === firstCard || this.classList("open")) return
+    if(lockBoard || this === firstCard || this.classList.contains("open")) return
     this.classList.add("open")
 
     if(!firstCard){
@@ -60,6 +64,14 @@ function checkCards(){
             firstCard.classList.add("close")
             secondCard.classList.add("close")
             reset_turn()
+
+        //проверка завершения игры
+        if (document.querySelectorAll(".close").length === cardImages.length){
+            setTimeout(()=>{
+             alert("Игра окончена!")
+             location.reload()   
+            },1000)
+        }
         },500)
     }else {
         setTimeout(()=>{
