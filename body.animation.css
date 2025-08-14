@@ -1,0 +1,213 @@
+:root {
+  --bg-start: rgba(70, 60, 110, 0.85);
+  --bg-end: rgba(25, 20, 45, 1);
+  --dna-pair: linear-gradient(135deg, #bfc7e6 0%, #8b91c6 50%, #bcc3e9 100%);
+  --helix-glow: #ffe066;
+  --a-color: linear-gradient(145deg, #ff5c5c, #d43535);
+  --t-color: linear-gradient(145deg, #3a9ad9, #1a5583);
+  --g-color: linear-gradient(145deg, #a4d87d, #638e2f);
+  --c-color: linear-gradient(145deg, #ffa156, #cc6120);
+  --text-color: #f5f5f7;
+  --font-family: monospace;
+  --tilt: translateZ(-100px) rotateY(-10deg) rotateX(10deg) rotateZ(-70deg);
+  --br: 12px;
+}
+body {
+  background: radial-gradient(circle at center, var(--bg-start), var(--bg-end)),
+    url("https://www.transparenttextures.com/patterns/beige-paper.png");
+  background-repeat: no-repeat, repeat;
+  background-size: cover, 5000px 500px;
+  background-position: 50% 50%, 0 0;
+  animation: moveBg 40s linear infinite;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+@keyframes moveBg {
+  0% {
+    background-position: 50% 50%, 0 0;
+  }
+  100% {
+    background-position: 50% 50%, 500px 500px;
+  }
+}
+
+.scene {
+  opacity: 0.95;
+  perspective: 1200px;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  filter: drop-shadow(0 0 8px rgba(255 224 102 / 0.4));
+}
+
+.helix {
+  position: relative;
+  transform-style: preserve-3d;
+  animation: spin 15s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotateY(0deg) translateY(-100px);
+  }
+  to {
+    transform: rotateY(360deg) translateY(calc(-100% - 100px));
+  }
+}
+
+.base-pair {
+  height: 7px;
+  position: absolute;
+  left: 50%;
+  display: flex;
+  place-items: center;
+  justify-content: space-between;
+  width: 110px;
+  transform-style: preserve-3d;
+  border-radius: var(--br);
+
+  background: linear-gradient(
+      135deg,
+      rgba(255 255 255 / 0.2) 0%,
+      rgba(30 30 50 / 0.5) 40%,
+      rgba(30 30 50 / 0.8) 60%,
+      rgba(255 255 255 / 0.2) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255 255 255 / 0.1),
+      rgba(255 255 255 / 0.1) 2px,
+      rgba(0 0 0 / 0.1) 3px,
+      rgba(0 0 0 / 0.1) 5px
+    );
+  box-shadow: inset 0 3px 5px rgba(255 255 255 / 0.4),
+    inset 0 -3px 8px rgba(0 0 0 / 0.6);
+}
+
+.base-pair::before,
+.base-pair::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 55px;
+  background: var(--helix-glow);
+  box-shadow: 0 0 40px var(--helix-glow), 0 0 10px var(--helix-glow),
+    inset 0 0 12px rgba(255 224 102 / 0.6);
+  border-radius: 12px;
+  transform-origin: top center;
+  opacity: 0.7;
+}
+
+.base-pair::before {
+  transform: rotateZ(-70deg) rotateX(0deg) translateX(-30px);
+}
+.base-pair::after {
+  transform: rotateZ(-70deg) rotateX(0deg) translateX(20px);
+}
+
+.base {
+  opacity: 0.95;
+  width: 40%;
+  height: 12px;
+  border-radius: var(--br);
+  font-size: 13px;
+  font-family: var(--font-family);
+  text-align: center;
+  line-height: 20px;
+  color: var(--text-color);
+  transform-style: preserve-3d;
+  box-shadow: inset 0 1.5px 2px rgba(255 255 255 / 0.8),
+    inset 0 -2px 3px rgba(0 0 0 / 0.4), 0 2px 6px rgba(0 0 0 / 0.6);
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+  background-clip: padding-box;
+}
+
+.base:hover {
+  box-shadow: inset 0 1.5px 6px rgba(255 255 255 / 1),
+    inset 0 -2px 6px rgba(0 0 0 / 0.7), 0 3px 8px rgba(255 224 102 / 0.9);
+}
+
+.base:hover::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-55px) translateZ(10px);
+  padding: 3px 8px;
+  font-size: 11px;
+  color: var(--text-color);
+  background: rgba(25, 25, 30, 0.85);
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.9;
+  font-family: var(--font-family);
+  filter: drop-shadow(0 0 4px black);
+  z-index: 20;
+}
+.a {
+  background-color: #f94144;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0.5)
+  );
+  background-blend-mode: overlay;
+}
+
+.t {
+  background-color: #277da1;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0.5)
+  );
+  background-blend-mode: overlay;
+}
+
+.g {
+  background-color: #90be6d;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0.5)
+  );
+  background-blend-mode: overlay;
+}
+
+.c {
+  background-color: #f3722c;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0.5)
+  );
+  background-blend-mode: overlay;
+}
+
+.left {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.15),
+    transparent,
+    transparent
+  );
+}
+
+.right {
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    transparent,
+    rgba(0, 0, 0, 0.15)
+  );
+}
