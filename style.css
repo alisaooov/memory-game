@@ -4,6 +4,7 @@
     gap: 10px;
     justify-content: center;
     margin-top: 30px;
+    perspective: 400px;
 }
 .card{
     width: 120px;
@@ -12,7 +13,7 @@
     border-radius: 10px;
     cursor: pointer;
     position: relative;
-    perspective: 1000px;
+  
 }
 
 .card img{
@@ -24,10 +25,12 @@
 
 .card.open img{
     display: block;
+    transform:rotateY(180deg)
 }
 
 .card.close{
     visibility: hidden;
     pointer-events: none;
     opacity: 0;
+    transform:rotateY(180deg)
 }
