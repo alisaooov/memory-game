@@ -1,14 +1,14 @@
 .board{
     display: none;
-    grid-template-columns: repeat(6,200px);
+    grid-template-columns: repeat(6,120px);
     gap: 10px;
     justify-content: center;
     margin-top: 30px;
 }
 .card{
-    width: 200px;
-    height: 400px;
-    background-color: yellow;
+    width: 120px;
+    height: 180px;
+    background-color: rgba(34, 117, 190, 0.88);
     border-radius: 10px;
     cursor: pointer;
     position: relative;
@@ -28,4 +28,6 @@
 
 .card.close{
     visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
 }
