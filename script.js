@@ -31,10 +31,25 @@ function createBoard(){
     card.classList.add("card")
     card.dataset.image = img
 
+    let inner = document.createElement("div")
+    inner.classList.add("card-inner")
+    
+    let front = document.createElement("div")
+    front.classList.add("card-front")
+
+    front.textContent = "?"
+
+    let back = document.createElement("div")
+    back.classList.add("card-back")
+
     let image = document.createElement("img")
     image.src = img
-    card.appendChild(image)
+    back.appendChild(image)
 
+    inner.appendChild(front)
+    inner.appendChild(back)
+    card.appendChild(inner)
+    
     card.addEventListener("click", cardClick)
     board.appendChild(card)
 });
