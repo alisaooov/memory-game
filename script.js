@@ -31,15 +31,28 @@ function createBoard(){
     card.classList.add("card")
     card.dataset.image = img
 
+    let inner=document.createElement("div")
+    inner.classList.add("cardInner")
+
+    let front=document.createElement("div")
+    front.classList.add("cardFront")
+    front.textContent="?"
+
+    let back=document.createElement("div")
+    back.classList.add("cardBack")
+    
     let image = document.createElement("img")
     image.src = img
-    card.appendChild(image)
+    back.appendChild(image)
+    inner.appendChild(front)
+    inner.appendChild(back)
+
+    card.appendChild(inner)
 
     card.addEventListener("click", cardClick)
     board.appendChild(card)
 });
 }             
-
 
 
 
@@ -61,12 +74,14 @@ function checkCards(){
     let check = firstCard.dataset.image === secondCard.dataset.image
     if (check){
         setTimeout(()=>{
-            firstCard.classList.add("close")
-            secondCard.classList.add("close")
+            // firstCard.classList.add("close")
+            // secondCard.classList.add("close")
+            firstCard.style.visibility="hidden"
+            secondCard.style.visibility="hidden"
             reset_turn()
 
         //проверка завершения игры
-        if (document.querySelectorAll(".close").length === cardImages.length){
+        if (document.querySelectorAll(".close").length === document.querySelectorAll("[style*='hidden']").length){
             setTimeout(()=>{
              alert("Игра окончена!")
              location.reload()   
